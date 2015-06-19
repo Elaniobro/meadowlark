@@ -1,7 +1,7 @@
 var express 	= require ( 'express' ),
-    app 	= express(),
-    fortune     = require( './lib/fortnue.js' ),
-    handlebars 	= require ( 'express3-handlebars' )
+	app 		= express();
+
+var handlebars 	= require ( 'express3-handlebars' )
 		.create({ defaultLayout : 'main'});
 
 app.engine( 'handlebars', handlebars.engine);
@@ -16,9 +16,11 @@ app.get('/', function (req, res){
 	res.render('home');
 })
 app.get('/about', function (req,res){
+	var randomFortune = 
+			fortunes[Math.floor(Math.random() * fortunes.length)];
 	var randomName =
 			names[Math.floor(Math.random()* names.length)];
-	res.render('about', { fortune: fortune.getFortune() });
+	res.render('about', { fortune: randomFortune, name: randomName });
 })
 
 // custom 404 page; catch-all handler (middleware)
